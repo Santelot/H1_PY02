@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playbook - Sesión 2: ¡Ingeniería de Prompts en Acción! – Generando la Visión v1</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; color: #333; line-height: 1.6; }
+        .container { max-width: 1000px; margin: auto; padding: 20px; }
+        .header { background-color: #ffa500; color: white; text-align: center; padding: 10px; } /* Orange Accent */
+        .activity { margin-bottom: 20px; }
+        /* Using details/summary as requested, styling summary like a banner */
+        summary.banner {
+            background-color: #ffa500; /* Orange Accent */
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            margin-bottom: 0px; /* Adjust as needed */
+            font-weight: bold;
+            list-style: none; /* Hide default marker */
+            display: block; /* Ensure it takes full width */
+        }
+        summary.banner::-webkit-details-marker { display: none; } /* Hide marker in Webkit */
+        details > summary.banner { margin-bottom: 10px; } /* Add margin when details is closed */
+        details[open] > summary.banner { margin-bottom: 0; } /* No margin when details is open */
+
+        .content { display: block; padding: 10px; border: 1px solid #ddd; margin-bottom: 10px; margin-top: -10px; border-top: none;} /* Content shown by default with details */
+        details:not([open]) .content {
+             /* Styles for content when details is closed - already handled by details */
+        }
+        details[open] .content {
+           /* Styles for content when details is open */
+           border-top: 1px solid #ddd; /* Add border-top when open to separate from summary */
+           margin-top:0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background-color: #f2f2f2; /* Light gray for headers */
+        }
+        td:first-child { /* Action column */
+            width: 50%;
+        }
+        td:last-child { /* Dialogue column */
+            width: 50%;
+        }
+        span[style*="color: red;"] {
+            font-weight: bold;
+        }
+         ul, ol {
+            margin-top: 0;
+            margin-bottom: 10px;
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+        .time-title { margin-bottom: 20px; text-align: center; font-size: 1.2em; color: #555;}
+        /* Italicized notes for facilitator */
+        em { font-style: italic; color: #555; }
+        strong { color: #ffa500; } /* Highlight keywords in orange */
+    </style>
+    <script>
+        // Basic toggle function, though <details> handles visibility natively.
+        function toggleContent(id) {
+            const detailElement = document.getElementById(id + '_details');
+            if (detailElement) {
+                // Native browser handling
+            }
+        }
+         window.onload = () => {
+             // Native <details> handles initial state.
+         };
+    </script>
+</head>
+<body>
+    <div class="header">
+        <h1>Playbook - Prototipo Rápido IA - Sesión 2: ¡Ingeniería de Prompts en Acción! – Generando la Visión v1</h1>
+    </div>
+    <div class="container">
+        <h2 class="time-title">Tiempo efectivo de clase: 40 minutos</h2>
+
+        <!-- Resumen de Sesión -->
+        <details id="activity_0_details" class="activity" open>
+            <summary class="banner" onclick="toggleContent('activity_0')">📝 Resumen de Sesión</summary>
+            <div id="activity_0_content" class="content">
+                <table>
+                    <tr>
+                        <td style="width: 50%; padding: 10px; border-right: 1px solid #ddd;">
+                            <strong>🎯 Objetivo:</strong>
+                            <ul>
+                                <li>Avanzar en la creación y ejecución de los prompts iniciales definidos para el MVP.</li>
+                                <li>Generar la primera versión (v1) del output principal de la IA (texto, imagen, etc.) basado en el primer prompt clave.</li>
+                                <li>Gestionar activamente el flujo de trabajo utilizando el tablero Kanban y los roles técnicos.</li>
+                            </ul>
+                        </td>
+                        <td style="width: 50%; padding: 10px;">
+                             <strong>🔑 Entregable Clave:</strong>
+                             <ul>
+                                <li>Primera versión (v1) del output IA principal generada por el Ingeniero/a de Prompts (ej. borrador de texto descriptivo, primera imagen conceptual).</li>
+                                <li>Tarea correspondiente movida a la columna "En Evaluación" del Kanban.</li>
+                             </ul>
+                             <strong>🛠️ Materiales / Preparación:</strong>
+                            <ul>
+                                <li>Tableros Kanban preparados por cada equipo (físicos o digitales) con el backlog inicial en "Por Hacer" y la primera tarea en "En Ingeniería".</li>
+                                <li>Acceso a las herramientas de IA seleccionadas (ej. ChatGPT, Midjourney, DALL-E, etc.) para los Ingenieros/as de Prompts.</li>
+                                <li>Acceso a la "Visión del Futuro" y definición del MVP para referencia.</li>
+                                <li>Proyector o pantalla.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </details>
+
+        <!-- Desarrollo de la Sesión -->
+
+        <!-- Actividad 1: Stand-up Técnico IA -->
+        <details id="activity_1_details" class="activity" open>
+            <summary class="banner" onclick="toggleContent('activity_1')">🚀 Actividad 1: Stand-up Técnico IA ⏰ Tiempo: 5 minutos</summary>
+            <div id="activity_1_content" class="content">
+                <table>
+                     <thead><tr><th>Acción</th><th>Diálogo del Maestro</th></tr></thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <strong>Paso 1: (1 min)</strong> Iniciar el stand-up, recordando el objetivo de la sesión. <strong>(Proyectar Diapositiva 1: Título Sesión 2 + Icono ⚙️➡️📄)</strong>.
+                            </td>
+                            <td>
+                                "¡Equipo IA, buenos días! Arrancamos la Sesión 2: ¡Ingeniería de Prompts en Acción! Hoy nos metemos de lleno a 'hablar' con la IA para generar la primera versión de nuestro MVP. ¡Vamos a ver cómo esas ideas empiezan a tomar forma digital!"
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Paso 2: (3 min)</strong> Realizar un rápido stand-up técnico por equipo. Cada miembro responde brevemente. Enfocar en la tarea "En Ingeniería". <strong>(Proyectar Diapositiva 2: Preguntas Stand-up - ¿Qué avancé/haré hoy? ¿Desafíos?)</strong>.
+                            </td>
+                            <td>
+                                "Ronda rápida de Stand-up. Empezamos por el <strong>Ingeniero/a de Prompts</strong>: ¿Qué tarea tienes 'En Ingeniería'? ¿Cuál es tu plan inmediato para abordarla hoy?"
+                                <br>
+                                "<strong>Arquitecto/a de IA:</strong> ¿Cómo apoyarás al Ingeniero/a? ¿Tienes listas las siguientes tareas en 'Por Hacer'?"
+                                <br>
+                                "<strong>Evaluador/a de Calidad IA:</strong> ¿Estás preparando los criterios para evaluar el output que generará el Ingeniero/a hoy? ¿Qué buscarás principalmente?"
+                                <br>
+                                "Y para todos: ¿Anticipan algún <strong>desafío</strong> con la IA o con el prompt? ¿Algún bloqueo creativo o técnico?"
+                                <br><br>
+                                <em>(Dar 1 minuto por equipo aprox. para esta ronda rápida. Fomentar la brevedad y el enfoque en la acción inmediata).</em>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Paso 3: (1 min)</strong> Revisión rápida visual del Kanban de cada equipo. Confirmar que la primera tarea esté "En Ingeniería".
+                            </td>
+                            <td>
+                                "¡Bien! Ahora, una mirada rápida a sus tableros Kanban. Confirmen que la primera tarea clave del MVP esté en la columna 'En Ingeniería'. ¡Ese es nuestro foco principal ahora mismo!"
+                                <br><br>
+                                <em>(Verificar visualmente o pedir confirmación rápida de los equipos).</em>
+                                "¡Perfecto! ¡Listos para el ciclo de ingeniería!"
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </details>
+
+        <!-- Actividad 2: Ciclo de Ingeniería y Generación IA -->
+        <details id="activity_2_details" class="activity" open>
+            <summary class="banner" onclick="toggleContent('activity_2')">🛠️ Actividad 2: Ciclo de Ingeniería y Generación IA ⏰ Tiempo: 30 minutos</summary>
+            <div id="activity_2_content" class="content">
+                 <table>
+                     <thead><tr><th>Acción</th><th>Diálogo del Maestro</th></tr></thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <strong>Paso 1: (2 min)</strong> Dar la instrucción clara para el bloque de trabajo principal. Enfocar al Ingeniero/a de Prompts. <strong>(Proyectar Diapositiva 3: ¡A Construir v1! - Ingeniero/a en acción + Herramienta IA)</strong>.
+                            </td>
+                            <td>
+                                "¡Muy bien, equipos! Entramos en el corazón de la sesión: el <strong>Ciclo de Ingeniería y Generación IA</strong>. Durante los próximos 25-30 minutos, el foco estará en crear la primera versión (v1) del output de su MVP."
+                                <br><br>
+                                "<strong>Ingeniero/a de Prompts:</strong> ¡Es tu momento! Toma la tarea que está 'En Ingeniería'. Diseña y escribe el prompt en la herramienta de IA que hayan elegido (ChatGPT, Midjourney, etc.). Interactúa con la herramienta, ejecuta el prompt y obtén esa primera salida (output v1)."
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Paso 2: (25 min)</strong> Trabajo enfocado por roles.
+                                <ul>
+                                    <li><strong>Ingeniero/a:</strong> Escribe prompts, interactúa con la IA (ChatGPT, Midjourney, etc.), obtiene salida v1.</li>
+                                    <li><strong>Arquitecto/a:</strong> Supervisa ejecución, asegura alineación con estrategia, ayuda a refinar prompt si IA no entiende, prepara siguientes prompts.</li>
+                                    <li><strong>Evaluador/a:</strong> Prepara criterios de evaluación detallados para la salida v1 que se está generando.</li>
+                                </ul>
+                                Facilitador circula, apoya, resuelve dudas técnicas o conceptuales. <strong>(Proyectar Diapositiva 4: Roles en Acción - Iconos de roles trabajando + Kanban "En Ingeniería")</strong>.
+                            </td>
+                            <td>
+                                "Mientras el <strong>Ingeniero/a</strong> trabaja directamente con la IA:"
+                                <br>
+                                "- El <strong>Arquitecto/a</strong> está atento: ¿El prompt se alinea con la visión? Si la IA no entiende, ayuda al Ingeniero/a a refinar las palabras clave o añadir contexto. ¡Prepara también los siguientes prompts en 'Por Hacer'!"
+                                <br>
+                                "- El <strong>Evaluador/a</strong> no espera: ¡Prepara ya mismo la lista de verificación! ¿Qué criterios usarás para evaluar la salida v1? ¿Claridad? ¿Coherencia con la visión? ¿Ausencia de errores obvios? Ten listos tus criterios."
+                                <br><br>
+                                "¡Máximo enfoque ahora! Ingenieros/as, no busquen la perfección en v1, busquen una primera versión funcional. Si algo no sale bien, es parte del proceso de aprendizaje y refinamiento."
+                                <br><br>
+                                <em>(Circular constantemente. Observar la interacción del Ingeniero/a con la IA. Ayudar si hay bloqueos técnicos. Preguntar al Arquitecto/a sobre la alineación. Revisar los criterios que prepara el Evaluador/a).</em>
+                                <br>
+                                <em>"Ingeniero/a, ¿cómo está respondiendo la IA a tu prompt? ¿Necesitas probar otra formulación?"</em>
+                                <br>
+                                <em>"Arquitecto/a, ¿este prompt sigue la estrategia que definieron? ¿Qué viene después?"</em>
+                                <br>
+                                <em>"Evaluador/a, ¿qué es lo más importante que vas a revisar en esta primera salida?"</em>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Paso 3: (3 min)</strong> Kanban Flow: Instruir al Ingeniero/a para mover la tarea completada (output v1 obtenido) a la columna "En Evaluación" al finalizar su trabajo. <strong>(Proyectar Diapositiva 5: Kanban Flow - Flecha moviendo tarea de ⚙️ a 🤔)</strong>.
+                            </td>
+                            <td>
+                                "¡Atención, Ingenieros/as! Una vez que tengan esa primera versión del output (v1) generada por la IA, ¡han completado la fase de ingeniería inicial! Ahora deben actualizar el Kanban."
+                                <br><br>
+                                "Tomen la tarjeta/post-it de la tarea que acaban de completar (ej. 'Generar Output v1 [Tipo]') y muévanla de la columna 'En Ingeniería' a la columna <strong>'En Evaluación'</strong>."
+                                <br><br>
+                                "Esto indica que la primera versión está lista para ser analizada por el Evaluador/a en la próxima sesión. ¡Asegúrense de hacer este movimiento en el tablero!"
+                                <br><br>
+                                <em>(Verificar que los Ingenieros/as realicen el movimiento en el Kanban antes de pasar al cierre).</em>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </details>
+
+        <!-- Actividad 3: Cierre Rápido y Preparación para Evaluación -->
+        <details id="activity_3_details" class="activity" open>
+            <summary class="banner" onclick="toggleContent('activity_3')">✅ Actividad 3: Cierre Rápido y Preparación para Evaluación ⏰ Tiempo: 5 minutos</summary>
+            <div id="activity_3_content" class="content">
+                 <table>
+                     <thead><tr><th>Acción</th><th>Diálogo del Maestro</th></tr></thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <strong>Paso 1: (2 min)</strong> Breve puesta en común: Preguntar qué outputs v1 se generaron.
+                            </td>
+                            <td>
+                                "¡Tiempo! ¡Excelente ciclo de trabajo, equipos! Vamos a hacer una puesta en común muy rápida."
+                                <br><br>
+                                "¿Qué tipo de outputs v1 lograron generar hoy? ¿Textos? ¿Imágenes? ¿Borradores iniciales?"
+                                <br><br>
+                                <em>(Pedir a 2-3 equipos que compartan brevemente qué obtuvieron).</em>
+                                "¡Genial ver esas primeras versiones!"
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Paso 2: (2 min)</strong> Confirmar actualización del Kanban y preparar para la siguiente sesión (Evaluación). <strong>(Proyectar Diapositiva 6: ¡Listos para Evaluar! - Kanban con tarea en 🤔 + Icono Evaluador/a)</strong>.
+                            </td>
+                            <td>
+                                "Confirmen todos: ¿La tarea trabajada hoy está ahora en la columna <strong>'En Evaluación'</strong> de su Kanban?"
+                                <br><br>
+                                <em>(Esperar confirmación visual o verbal).</em>
+                                <br><br>
+                                "¡Perfecto! Eso significa que estamos listos para la siguiente fase. <strong>Evaluadores/as de Calidad IA</strong>, prepárense. En la próxima sesión, será su turno de analizar críticamente estas salidas v1. Usarán los criterios que prepararon hoy."
+                                <br><br>
+                                "<strong>Ingenieros/as y Arquitectos/as</strong>, estén listos para recibir feedback y potencialmente refinar los prompts basándose en la evaluación."
+                            </td>
+                        </tr>
+                         <tr>
+                            <td>
+                                <strong>Paso 3: (1 min)</strong> Cierre final de la sesión.
+                            </td>
+                            <td>
+                                "¡Han dado un gran paso hoy generando la primera versión de su visión con IA! La ingeniería de prompts está en marcha."
+                                <br><br>
+                                "La próxima sesión será crucial: ¡Control de Calidad IA! Vamos a evaluar y refinar. ¡Nos vemos!"
+                                <br><br>
+                                <em>(Asegurarse de que los outputs generados estén guardados o accesibles para la siguiente sesión si es necesario).</em>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </details>
+
+    </div> <!-- Fin del container -->
+</body>
+</html>
